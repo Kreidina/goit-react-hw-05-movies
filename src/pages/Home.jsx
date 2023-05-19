@@ -20,6 +20,7 @@ const Home = () => {
           return (
             <MoviesItems
               key={name.id}
+              id={name.id}
               poster_path={name.poster_path}
               tags={name.title}
               title={name.original_title}

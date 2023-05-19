@@ -1,7 +1,7 @@
 import './CardDetailMovie.css';
 
 const CardDetailMovie = ({ details }) => {
-  const { id, original_title, poster_path, genres, release_date, overview } =
+  const { original_title, poster_path, genres, release_date, overview } =
     details;
 
   return (
