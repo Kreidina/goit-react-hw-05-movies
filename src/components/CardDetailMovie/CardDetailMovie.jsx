@@ -11,10 +11,12 @@ const CardDetailMovie = ({ details }) => {
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
         alt={original_title}
       />
-      <div>
+      <div className="info-container">
         <h1 className="card-title">
           {original_title}
-          <span>({release_date && release_date.slice(0, 4)})</span>
+          <span className="yers">
+            ({release_date && release_date.slice(0, 4)})
+          </span>
         </h1>
         <p className="card-user">User Score: %</p>
         <h2 className="card-overview-title">Overview</h2>

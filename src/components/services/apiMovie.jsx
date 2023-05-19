@@ -16,7 +16,7 @@ async function fetchTrendingMovies() {
 async function fetchSearchMovies(search) {
   try {
     const response = await axios.get(
-      `3/search/movie?api_key=${API_KEY}&query=${search}&page=1`
+      `3/search/movie?api_key=${API_KEY}&${search}&page=1`
     );
     return response.data;
   } catch (error) {

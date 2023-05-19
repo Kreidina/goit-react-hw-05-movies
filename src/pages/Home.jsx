@@ -1,10 +1,11 @@
 import MoviesItems from 'components/MoviesItems/MoviesItems';
 import api from 'components/services/apiMovie';
 import { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [moviesName, setMoviesName] = useState([]);
-
+  const location = useLocation();
   useEffect(() => {
     const movies = api.fetchTrendingMovies();
     movies.then(movie => {
@@ -18,13 +19,19 @@ const Home = () => {
       <ul className="movie-list">
         {moviesName.map(name => {
           return (
-            <MoviesItems
+            <NavLink
               key={name.id}
-              id={name.id}
-              poster_path={name.poster_path}
-              tags={name.title}
-              title={name.original_title}
-            />
+              to={`/movies/${name.id}`}
+              state={location}
+              className="link-movie"
+            >
+              <MoviesItems
+                id={name.id}
+                poster_path={name.poster_path}
+                tags={name.title}
+                title={name.original_title}
+              />
+            </NavLink>
           );
         })}
       </ul>

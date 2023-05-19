@@ -1,41 +1,68 @@
 import CardDetailMovie from 'components/CardDetailMovie/CardDetailMovie';
-import { useCostomContext } from 'components/Context/Context';
+
 import api from 'components/services/apiMovie';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
-  const { movieId } = useCostomContext();
+  const params = useParams();
   const [details, setDetails] = useState([]);
   const location = useLocation();
-
+  // const path = location.pathname.split('/')[1];
+  // console.log(path);
   useEffect(() => {
-    const responseDetails = api.fetchDetailsMovies(movieId);
+    const responseDetails = api.fetchDetailsMovies(params.id);
     responseDetails.then(details => {
       setDetails(details);
     });
-  }, [movieId]);
-
-  // console.log(details);
+  }, [params]);
 
   return (
     <>
-      <button type="button">
-        <Link to={location.state.from}>- Go Back</Link>
-      </button>
-      <CardDetailMovie details={details} />
-      <ul>
-        <li>
-          <Link to="cast" details={details}>
-            Cast
+      <div className="container-details" style={{ padding: '0 20px' }}>
+        <button
+          type="button"
+          style={{
+            padding: '4px',
+            borderRadius: '3px',
+            backgroundColor: '#fff',
+            border: 'none',
+            boxShadow:
+              'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 3px',
+            margin: '20px 15px 0',
+          }}
+        >
+          <Link
+            to={
+              location.state
+              // || `/${path}`
+            }
+            style={{ textDecoration: 'none' }}
+          >
+            - Go Back
           </Link>
-        </li>
-        <li>
-          <Link to="reviews" details={details}>
-            Reviews
-          </Link>
-        </li>
-      </ul>
+          {/* чорновий варіант */}
+        </button>
+
+        <CardDetailMovie details={details} />
+      </div>
+      <div
+        style={{
+          borderTop: ' 2px solid rgba(0, 0, 0, 0.35) ',
+          margin: 0,
+          padding: '15px 20px',
+        }}
+      >
+        <p>Additional information</p>
+        <ul style={{ listStyle: 'none' }}>
+          <li style={{ margin: '10px' }}>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li style={{ margin: '10px' }}>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+      </div>
       <Outlet />
     </>
   );

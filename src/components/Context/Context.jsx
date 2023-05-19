@@ -8,15 +8,12 @@ export const useCostomContext = () => {
 
 const Context = ({ children }) => {
   const [movies, setMovies] = useState([]);
-  const [movieId, setMovieId] = useState('');
 
   return (
     <ContextMovie.Provider
       value={{
         movies: movies,
         setMovies: setMovies,
-        movieId: movieId,
-        setMovieId: setMovieId,
       }}
     >
       {children}

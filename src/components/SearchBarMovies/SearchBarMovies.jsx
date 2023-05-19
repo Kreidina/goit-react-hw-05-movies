@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './SearchBarMovies.css';
 
-const SearchBarMovies = ({ onSubmit }) => {
+const SearchBarMovies = ({ setSearchParams }) => {
   const [query, setQuery] = useState('');
 
-  const handelChange = e => {
-    setQuery(e.currentTarget.value);
+  const handelChange = ({ target }) => {
+    setQuery(target.value);
   };
 
   const handelSubmit = e => {
@@ -13,15 +13,18 @@ const SearchBarMovies = ({ onSubmit }) => {
     if (query.trim() === '') {
       return alert('Enter a word to search for a picture');
     }
-    onSubmit(query);
+
+    setSearchParams({ query: query });
+
     setQuery('');
   };
+
   return (
     <form onSubmit={handelSubmit} className="form-search">
       <input
         className="input"
-        value={query}
         onChange={handelChange}
+        value={query}
         type="text"
         autoComplete="off"
         autoFocus
