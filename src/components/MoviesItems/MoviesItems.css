@@ -1,7 +1,13 @@
+.img-movie {
+  height: 340px;
+}
+.img-title {
+  margin: 10px 0;
+}
 .movie-list {
   display: grid;
   max-width: calc(100vw - 48px);
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 16px;
   list-style: none;
   padding: 15px;
@@ -14,8 +20,4 @@
   text-decoration: none;
   display: flex;
   flex-direction: column;
-}
-.img-movie {
-  width: 150px;
-  height: 100%;
 }

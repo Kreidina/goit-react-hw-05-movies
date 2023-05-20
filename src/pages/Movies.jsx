@@ -1,23 +1,45 @@
 import SearchBarMovies from 'components/SearchBarMovies/SearchBarMovies';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../components/services/apiMovie';
 import MoviesItems from 'components/MoviesItems/MoviesItems';
 import { useCostomContext } from 'components/Context/Context';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import HashLoader from 'react-spinners/HashLoader';
+import { toast } from 'react-toastify';
 
 const Movies = () => {
   const { movies, setMovies } = useCostomContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
+ 
   useEffect(() => {
-    if (searchParams === '') {
+    if (searchParams.size === 0) {
       return;
     }
+    const param = searchParams.get('query');
+
+    setLoading(true);
     const responseMovies = api.fetchSearchMovies(searchParams);
     responseMovies.then(movie => {
       setMovies(movie.results);
+      setLoading(false);
+
+      if (movie.total_results === 0) {
+        return toast.info(`Nothing was found for ${param}. Try something else`);
+      }
     });
-  }, [searchParams, setMovies]);
+  }, [searchParams, setMovies, setLoading, movies.length]);
+
+  if (loading) {
+    return (
+      <HashLoader
+        color="#ff4800"
+        size={70}
+        cssOverride={{ margin: '80px auto' }}
+      />
+    );
+  }
 
   return (
     <>

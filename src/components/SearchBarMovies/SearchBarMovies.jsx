@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './SearchBarMovies.css';
+import { toast } from 'react-toastify';
 
 const SearchBarMovies = ({ setSearchParams }) => {
   const [query, setQuery] = useState('');
@@ -11,11 +12,10 @@ const SearchBarMovies = ({ setSearchParams }) => {
   const handelSubmit = e => {
     e.preventDefault();
     if (query.trim() === '') {
-      return alert('Enter a word to search for a picture');
+      return toast.info('Enter a word to search for a picture');
     }
 
     setSearchParams({ query: query });
-
     setQuery('');
   };
 

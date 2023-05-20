@@ -1,14 +1,24 @@
 import './CardDetailMovie.css';
 
 const CardDetailMovie = ({ details }) => {
-  const { original_title, poster_path, genres, release_date, overview } =
-    details;
+  const {
+    original_title,
+    poster_path,
+    genres,
+    release_date,
+    overview,
+    vote_average,
+  } = details;
 
   return (
     <div className="container">
       <img
         className="card-img"
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        src={
+          poster_path !== null
+            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+            : 'https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie.jpg'
+        }
         alt={original_title}
       />
       <div className="info-container">
@@ -18,7 +28,7 @@ const CardDetailMovie = ({ details }) => {
             ({release_date && release_date.slice(0, 4)})
           </span>
         </h1>
-        <p className="card-user">User Score: %</p>
+        <p className="card-user">Rating: {vote_average?.toFixed(1)}</p>
         <h2 className="card-overview-title">Overview</h2>
         <p className="card-overview">{overview}</p>
         <h2 className="card-genres">Genres</h2>
@@ -27,7 +37,7 @@ const CardDetailMovie = ({ details }) => {
             genres.map(genre => {
               return (
                 <li className="genre-item" key={genre.id}>
-                  {genre.name},
+                  {genre.name}
                 </li>
               );
             })}
