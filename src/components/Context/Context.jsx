@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const ContextMovie = React.createContext();
 
@@ -21,3 +22,7 @@ const Context = ({ children }) => {
   );
 };
 export default Context;
+
+Context.propTypes = {
+  children: PropTypes.node.isRequired,
+};

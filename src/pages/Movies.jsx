@@ -12,7 +12,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
- 
+
   useEffect(() => {
     if (searchParams.size === 0) {
       return;

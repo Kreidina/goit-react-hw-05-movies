@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './SearchBarMovies.css';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 const SearchBarMovies = ({ setSearchParams }) => {
   const [query, setQuery] = useState('');
@@ -38,3 +39,7 @@ const SearchBarMovies = ({ setSearchParams }) => {
 };
 
 export default SearchBarMovies;
+
+SearchBarMovies.propTypes = {
+  setSearchParams: PropTypes.func.isRequired,
+};

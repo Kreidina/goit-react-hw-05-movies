@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './MoviesItems.css';
 
 const MoviesItems = ({ id, poster_path, tags, title }) => {
@@ -19,3 +20,10 @@ const MoviesItems = ({ id, poster_path, tags, title }) => {
 };
 
 export default MoviesItems;
+
+MoviesItems.propTypes = {
+  id: PropTypes.number.isRequired,
+  poster_path: PropTypes.string,
+  tags: PropTypes.string,
+  title: PropTypes.string,
+};
