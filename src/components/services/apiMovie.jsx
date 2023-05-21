@@ -48,7 +48,6 @@ async function fetchDetailsMovies(id) {
     return response.data;
   } catch (error) {
     console.log(error);
-    return toast.error('Unfortunately, there is no information about the film');
   }
 }
 

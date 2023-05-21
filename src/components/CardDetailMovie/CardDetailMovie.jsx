@@ -10,9 +10,12 @@ const CardDetailMovie = ({ details }) => {
     overview,
     vote_average,
   } = details;
+
   if (!details) {
+    console.log('not det');
     return null;
   }
+  console.log(details);
   return (
     <>
       {details && (

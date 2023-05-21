@@ -3,6 +3,7 @@ import HashLoader from 'react-spinners/HashLoader';
 import api from 'components/services/apiMovie';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import NotFound from './NotFound';
 
 const MovieDetails = () => {
   const params = useParams();
@@ -13,7 +14,12 @@ const MovieDetails = () => {
 
   const detailsPromise = useMemo(() => {
     setLoading(true);
-    return api.fetchDetailsMovies(params.id);
+    try {
+      return api.fetchDetailsMovies(params.id);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }, [params.id]);
 
   useEffect(() => {
@@ -33,8 +39,10 @@ const MovieDetails = () => {
       />
     );
   }
-
-  const chek = Object.keys(details).length < 25;
+  if (!details) {
+    return <NotFound />;
+  }
+  // const chek = Object.keys(details).length < 25;
   return (
     <>
       <div className="container-details" style={{ padding: '0 20px' }}>
@@ -55,31 +63,31 @@ const MovieDetails = () => {
           </Link>
         </button>
 
-        {!chek && (
-          <>
-            <CardDetailMovie details={details} />
-          </>
-        )}
+        {/* {!chek && ( */}
+        <>
+          <CardDetailMovie details={details} />
+        </>
+        {/* )} */}
       </div>
-      {!chek && (
-        <div
-          style={{
-            border: ' 2px solid rgba(0, 0, 0, 0.35) ',
-            margin: '10px 0',
-            padding: '15px 20px',
-          }}
-        >
-          <p>Additional information</p>
-          <ul style={{ listStyle: 'none' }}>
-            <li style={{ margin: '10px' }}>
-              <Link to="cast">Cast</Link>
-            </li>
-            <li style={{ margin: '10px' }}>
-              <Link to="reviews">Reviews</Link>
-            </li>
-          </ul>
-        </div>
-      )}
+      {/* {!chek && ( */}
+      <div
+        style={{
+          border: ' 2px solid rgba(0, 0, 0, 0.35) ',
+          margin: '10px 0',
+          padding: '15px 20px',
+        }}
+      >
+        <p>Additional information</p>
+        <ul style={{ listStyle: 'none' }}>
+          <li style={{ margin: '10px' }}>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li style={{ margin: '10px' }}>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+      </div>
+      {/* )} */}
 
       <Suspense>
         <Outlet />
