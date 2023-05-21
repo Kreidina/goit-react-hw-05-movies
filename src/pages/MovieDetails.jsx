@@ -42,7 +42,7 @@ const MovieDetails = () => {
   if (!details) {
     return <NotFound />;
   }
-  // const chek = Object.keys(details).length < 25;
+
   return (
     <>
       <div className="container-details" style={{ padding: '0 20px' }}>
@@ -63,13 +63,11 @@ const MovieDetails = () => {
           </Link>
         </button>
 
-        {/* {!chek && ( */}
         <>
           <CardDetailMovie details={details} />
         </>
-        {/* )} */}
       </div>
-      {/* {!chek && ( */}
+
       <div
         style={{
           border: ' 2px solid rgba(0, 0, 0, 0.35) ',
@@ -87,7 +85,6 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      {/* )} */}
 
       <Suspense>
         <Outlet />
