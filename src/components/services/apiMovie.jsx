@@ -4,9 +4,9 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/';
 const API_Authorization =
   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NmYzZWM2NGFiZmI1MWFiZTEzMTgxYThiYjE5MjlmMCIsInN1YiI6IjY0MzAzYmY5NmRlYTNhMDBiNTRlOTNlOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3wOLdxcoA2DAJirmMuSvEYNDya1YwIdBvChC6VOo9Vs';
 
-async function fetchTrendingMovies() {
+export async function fetchTrendingMovies(page) {
   try {
-    const response = await axios.get(`3/trending/all/day?page=1`, {
+    const response = await axios.get(`3/trending/all/day?page=${page}`, {
       headers: {
         Authorization: `${API_Authorization}`,
         Accept: 'application/json',
@@ -18,10 +18,10 @@ async function fetchTrendingMovies() {
   }
 }
 
-async function fetchSearchMovies(search) {
+export async function fetchSearchMovies(search, page) {
   try {
     const response = await axios.get(
-      `3/search/movie?&${search}&include_adult=false&&page=1`,
+      `3/search/movie?&${search}&include_adult=false&&page=${page}`,
       {
         headers: {
           Authorization: `${API_Authorization}`,
@@ -36,7 +36,7 @@ async function fetchSearchMovies(search) {
   }
 }
 
-async function fetchDetailsMovies(id) {
+export async function fetchDetailsMovies(id) {
   try {
     const response = await axios.get(`3/movie/${id}?language=en-US`, {
       headers: {
@@ -51,7 +51,7 @@ async function fetchDetailsMovies(id) {
   }
 }
 
-async function fetchCastMovies(id) {
+export async function fetchCastMovies(id) {
   try {
     const response = await axios.get(`3/movie/${id}/credits?`, {
       headers: {
@@ -65,7 +65,7 @@ async function fetchCastMovies(id) {
   }
 }
 
-async function fetchReviewsMovies(id) {
+export async function fetchReviewsMovies(id) {
   try {
     const response = await axios.get(`3/movie/${id}/reviews?&page=1`, {
       headers: {
@@ -78,13 +78,3 @@ async function fetchReviewsMovies(id) {
     console.log(error);
   }
 }
-
-const api = {
-  fetchTrendingMovies,
-  fetchSearchMovies,
-  fetchDetailsMovies,
-  fetchCastMovies,
-  fetchReviewsMovies,
-};
-
-export default api;

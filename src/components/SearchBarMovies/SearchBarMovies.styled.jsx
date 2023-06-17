@@ -1,15 +1,17 @@
-.form-search {
+import styled from '@emotion/styled';
+
+export const FormSearch = styled.form`
   display: flex;
-}
-.input {
+`;
+export const InputSearch = styled.input`
   width: 300px;
   padding: 10px;
   margin: 10px;
   border: none;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.btn {
+`;
+export const BTNSearch = styled.button`
   color: white;
   background-color: rgba(255, 72, 0, 0.74);
   width: 80px;
@@ -18,4 +20,4 @@
   margin-top: 10px;
   border: none;
   border-radius: 8px;
-}
+`;

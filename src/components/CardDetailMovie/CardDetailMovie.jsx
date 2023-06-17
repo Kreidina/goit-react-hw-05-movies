@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types';
-import './CardDetailMovie.css';
+import {
+  CardContainer,
+  CardText,
+  Chip,
+  GenerItem,
+  GenerList,
+  ImgCard,
+  InfoContainer,
+  MainTitle,
+  SecondTitle,
+} from './CardDetailMovie.styled';
 
-const CardDetailMovie = ({ details }) => {
+export const CardDetailMovie = ({ details }) => {
   const {
     original_title,
     poster_path,
@@ -18,9 +28,8 @@ const CardDetailMovie = ({ details }) => {
   return (
     <>
       {details && (
-        <div className="container">
-          <img
-            className="card-img"
+        <CardContainer>
+          <ImgCard
             src={
               poster_path !== null
                 ? `https://image.tmdb.org/t/p/w500${poster_path}`
@@ -28,34 +37,26 @@ const CardDetailMovie = ({ details }) => {
             }
             alt={original_title}
           />
-          <div className="info-container">
-            <h1 className="card-title">
+          <InfoContainer>
+            <MainTitle>
               {original_title}
-              <span className="yers">
-                ({release_date && release_date.slice(0, 4)})
-              </span>
-            </h1>
-            <p className="card-user">Rating: {vote_average?.toFixed(1)}</p>
-            <h2 className="card-overview-title">Overview</h2>
-            <p className="card-overview">{overview}</p>
-            <h2 className="card-genres">Genres</h2>
-            <ul className="genre-list">
+              <Chip>({release_date && release_date.slice(0, 4)})</Chip>
+            </MainTitle>
+            <CardText>Rating: {vote_average?.toFixed(1)}</CardText>
+            <SecondTitle>Overview</SecondTitle>
+            <CardText>{overview}</CardText>
+            <SecondTitle>Genres</SecondTitle>
+            <GenerList>
               {genres?.map(genre => {
-                return (
-                  <li className="genre-item" key={genre.id}>
-                    {genre.name}
-                  </li>
-                );
+                return <GenerItem key={genre.id}>{genre.name}</GenerItem>;
               })}
-            </ul>
-          </div>
-        </div>
+            </GenerList>
+          </InfoContainer>
+        </CardContainer>
       )}
     </>
   );
 };
-
-export default CardDetailMovie;
 
 CardDetailMovie.propTypes = {
   details: PropTypes.shape({

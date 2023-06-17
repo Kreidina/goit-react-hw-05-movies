@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import './SearchBarMovies.css';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import { BTNSearch, FormSearch, InputSearch } from './SearchBarMovies.styled';
 
-const SearchBarMovies = ({ setSearchParams }) => {
+export const SearchBarMovies = ({ setSearchParams, setCurrentPage }) => {
   const [query, setQuery] = useState('');
 
   const handelChange = ({ target }) => {
@@ -16,14 +16,14 @@ const SearchBarMovies = ({ setSearchParams }) => {
       return toast.info('Enter a word to search for a picture');
     }
 
-    setSearchParams({ query: query });
+    setSearchParams({ query });
+    setCurrentPage(1);
     setQuery('');
   };
 
   return (
-    <form onSubmit={handelSubmit} className="form-search">
-      <input
-        className="input"
+    <FormSearch onSubmit={handelSubmit}>
+      <InputSearch
         onChange={handelChange}
         value={query}
         type="text"
@@ -31,14 +31,10 @@ const SearchBarMovies = ({ setSearchParams }) => {
         autoFocus
         placeholder="Search movies"
       />
-      <button type="submit" className="btn">
-        Search
-      </button>
-    </form>
+      <BTNSearch type="submit">Search</BTNSearch>
+    </FormSearch>
   );
 };
-
-export default SearchBarMovies;
 
 SearchBarMovies.propTypes = {
   setSearchParams: PropTypes.func.isRequired,

@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import './CastItem.css';
+import { CastCharacter, CastIMG, CastName, Item } from './CastItem.styled';
 
-const CastItem = ({ name, character, photo }) => {
+export const CastItem = ({ name, character, photo }) => {
   return (
-    <li>
-      <img
-        className="img"
+    <Item>
+      <CastIMG
         src={
           photo !== null
             ? `https://image.tmdb.org/t/p/w500${photo}`
@@ -13,13 +12,11 @@ const CastItem = ({ name, character, photo }) => {
         }
         alt={name}
       />
-      <p className="name">{name}</p>
-      <p className="character">Character: {character}</p>
-    </li>
+      <CastName>{name}</CastName>
+      <CastCharacter>Character: {character}</CastCharacter>
+    </Item>
   );
 };
-
-export default CastItem;
 
 CastItem.propTypes = {
   name: PropTypes.string.isRequired,

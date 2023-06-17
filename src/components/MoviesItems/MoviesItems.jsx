@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
-import './MoviesItems.css';
+import { MovieImg, MovieItem, MovieTitle } from './MoviesItems.styled';
 
-const MoviesItems = ({ id, poster_path, tags, title }) => {
+export const MoviesItems = ({ id, poster_path, tags, title }) => {
   return (
-    <li key={id} className="movie-item">
-      <img
+    <MovieItem key={id}>
+      <MovieImg
         loading="lazy"
-        className="img-movie"
         src={
           poster_path !== null
             ? `https://image.tmdb.org/t/p/w500${poster_path}`
@@ -14,12 +13,10 @@ const MoviesItems = ({ id, poster_path, tags, title }) => {
         }
         alt={tags}
       />
-      <p className="img-title">{title}</p>
-    </li>
+      <MovieTitle>{title}</MovieTitle>
+    </MovieItem>
   );
 };
-
-export default MoviesItems;
 
 MoviesItems.propTypes = {
   id: PropTypes.number.isRequired,

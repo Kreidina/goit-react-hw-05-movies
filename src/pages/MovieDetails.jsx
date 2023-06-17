@@ -1,9 +1,18 @@
-import CardDetailMovie from 'components/CardDetailMovie/CardDetailMovie';
 import HashLoader from 'react-spinners/HashLoader';
-import api from 'components/services/apiMovie';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import NotFound from './NotFound';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  fetchDetailsMovies,
+  Card,
+  CardDetailMovie,
+  InfoCard,
+  InfoItem,
+  InfoList,
+  CardButton,
+  AdditionalInfo,
+  CardLink,
+  LinkBTN,
+} from 'components';
 
 const MovieDetails = () => {
   const params = useParams();
@@ -15,7 +24,7 @@ const MovieDetails = () => {
   const detailsPromise = useMemo(() => {
     setLoading(true);
     try {
-      return api.fetchDetailsMovies(params.id);
+      return fetchDetailsMovies(params.id);
     } catch (error) {
       console.log(error);
       return;
@@ -39,53 +48,26 @@ const MovieDetails = () => {
       />
     );
   }
-  if (!details) {
-    return <NotFound />;
-  }
 
   return (
     <>
-      <div className="container-details" style={{ padding: '0 20px' }}>
-        <button
-          type="button"
-          style={{
-            padding: '4px',
-            borderRadius: '3px',
-            backgroundColor: '#fff',
-            border: 'none',
-            boxShadow:
-              'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 3px',
-            margin: '20px 15px 0',
-          }}
-        >
-          <Link to={goBackLink.current} style={{ textDecoration: 'none' }}>
-            Go Back
-          </Link>
-        </button>
-
-        <>
-          <CardDetailMovie details={details} />
-        </>
-      </div>
-
-      <div
-        style={{
-          border: ' 2px solid rgba(0, 0, 0, 0.35) ',
-          margin: '10px 0',
-          padding: '15px 20px',
-        }}
-      >
-        <p>Additional information</p>
-        <ul style={{ listStyle: 'none' }}>
-          <li style={{ margin: '10px' }}>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li style={{ margin: '10px' }}>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-      </div>
-
+      <Card>
+        <CardButton type="button">
+          <LinkBTN to={goBackLink.current}>Go Back</LinkBTN>
+        </CardButton>
+        <CardDetailMovie details={details} />
+      </Card>
+      <InfoCard>
+        <AdditionalInfo>Additional information</AdditionalInfo>
+        <InfoList>
+          <InfoItem>
+            <CardLink to="cast">Cast</CardLink>
+          </InfoItem>
+          <InfoItem>
+            <CardLink to="reviews">Reviews</CardLink>
+          </InfoItem>
+        </InfoList>
+      </InfoCard>
       <Suspense>
         <Outlet />
       </Suspense>

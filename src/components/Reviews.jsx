@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
-import api from './services/apiMovie';
-import ReviewsItem from './ReviewsItem/ReviewsItem';
+import { ReviewsItem, ReviewsList, ReviewsMessage } from './ReviewsItem';
+import { fetchReviewsMovies } from './services';
 
 const Reviews = () => {
   const params = useParams();
@@ -11,7 +11,7 @@ const Reviews = () => {
 
   useEffect(() => {
     setLoading(true);
-    const response = api.fetchReviewsMovies(params.id);
+    const response = fetchReviewsMovies(params.id);
     response.then(data => {
       setReviews(data.results);
       setLoading(false);
@@ -31,7 +31,7 @@ const Reviews = () => {
   return (
     <>
       {reviews.length !== 0 ? (
-        <ul style={{ padding: '0 40px' }}>
+        <ReviewsList>
           {reviews.map(review => (
             <ReviewsItem
               key={review.id}
@@ -39,11 +39,9 @@ const Reviews = () => {
               content={review.content}
             />
           ))}
-        </ul>
+        </ReviewsList>
       ) : (
-        <p style={{ margin: '20px 20px ', fontWeight: '700' }}>
-          There are no reviews
-        </p>
+        <ReviewsMessage>There are no reviews</ReviewsMessage>
       )}
     </>
   );

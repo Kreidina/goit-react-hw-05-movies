@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import api from './services/apiMovie';
 import { useParams } from 'react-router-dom';
-import CastItem from './CastItem/CastItem';
 import { HashLoader } from 'react-spinners';
+import { CastItem, CastList, CastMessage } from './CastItem';
+import { fetchCastMovies } from './services';
 
 const Cast = () => {
   const params = useParams();
@@ -11,7 +11,7 @@ const Cast = () => {
 
   useEffect(() => {
     setLoading(true);
-    const response = api.fetchCastMovies(params.id);
+    const response = fetchCastMovies(params.id);
     response.then(data => {
       setCast(data.cast);
       setLoading(false);
@@ -31,7 +31,7 @@ const Cast = () => {
   return (
     <>
       {cast.length !== 0 ? (
-        <ul className="list">
+        <CastList>
           {cast.map(item => (
             <CastItem
               key={item.id}
@@ -40,11 +40,9 @@ const Cast = () => {
               photo={item.profile_path}
             />
           ))}
-        </ul>
+        </CastList>
       ) : (
-        <p style={{ margin: '20px 0', padding: '0 40px', fontWeight: '700' }}>
-          There is no information about the cast
-        </p>
+        <CastMessage>There is no information about the cast</CastMessage>
       )}
     </>
   );

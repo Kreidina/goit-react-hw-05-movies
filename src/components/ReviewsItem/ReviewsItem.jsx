@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
+import { Item, ReviewsMessage, ReviewsTitle } from '.';
 
-const ReviewsItem = ({ author, content }) => {
+export const ReviewsItem = ({ author, content }) => {
   return (
-    <li>
-      <h2>Author: {author}</h2>
-      <p style={{ margin: '15px 0' }}>{content}</p>
-    </li>
+    <Item>
+      <ReviewsTitle>Author: {author}</ReviewsTitle>
+      <ReviewsMessage>{content}</ReviewsMessage>
+    </Item>
   );
 };
-
-export default ReviewsItem;
 
 ReviewsItem.propTypes = {
   author: PropTypes.string.isRequired,

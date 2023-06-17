@@ -1,22 +1,35 @@
-import MoviesItems from 'components/MoviesItems/MoviesItems';
-import api from 'components/services/apiMovie';
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
+import {
+  fetchTrendingMovies,
+  MovieList,
+  MoviesItems,
+  MovieNavLink,
+  TerndingTitle,
+  Paginagion,
+} from 'components';
 
 const Home = () => {
   const [moviesName, setMoviesName] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     setLoading(true);
-    const movies = api.fetchTrendingMovies();
+    const movies = fetchTrendingMovies(currentPage);
     movies.then(movie => {
       setMoviesName(movie.results);
+      setTotalPage(movie.total_pages);
       setLoading(false);
     });
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = selectedPage => {
+    setCurrentPage(selectedPage.selected + 1);
+  };
 
   if (loading) {
     return (
@@ -30,11 +43,11 @@ const Home = () => {
 
   return (
     <>
-      <h1 style={{ margin: '10px' }}>Trending Today</h1>
-      <ul className="movie-list">
+      <TerndingTitle>Trending Today</TerndingTitle>
+      <MovieList>
         {moviesName.map(name => {
           return (
-            <NavLink
+            <MovieNavLink
               key={name.id}
               to={`/movies/${name.id}`}
               state={location}
@@ -46,10 +59,15 @@ const Home = () => {
                 tags={name.title}
                 title={name.original_title}
               />
-            </NavLink>
+            </MovieNavLink>
           );
         })}
-      </ul>
+      </MovieList>
+      <Paginagion
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        total={totalPage}
+      />
     </>
   );
 };
